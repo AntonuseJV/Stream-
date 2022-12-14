@@ -17,13 +17,13 @@ public class Main {
                     Sex.values()[new Random().nextInt(Sex.values().length)],
                     Education.values()[new Random().nextInt(Education.values().length)]));
         }
-        //молодёжь
+      
         long countYoungsters = persons.stream()
                 .filter(person -> person.getAge() < 18)
                 .count();
 
 
-        //призывники
+
         List<String> conscripts = persons.stream()
                 .filter(person -> person.getAge() < 27)
                 .filter(person -> person.getAge() > 18)
@@ -31,13 +31,13 @@ public class Main {
                 .collect(Collectors.toList());
 
 
-        //образованные работники
+
         List<String> educatedEmployees = persons.stream()
                 .filter(person -> person.getEducation() == Education.HIGHER)
                 .filter(person -> person.getAge() > 17)
                 .filter(person -> person.getSex() == Sex.WOMAN && person.getAge() < 60 || person.getSex() == Sex.MAN && person.getAge() < 65)
                 .map(Person::getFamily)
-                .sorted(comparing(Person::getFamily))
+                .sorted(Comparator.naturalOrder())
                 .collect(Collectors.toList());
     }
 }
